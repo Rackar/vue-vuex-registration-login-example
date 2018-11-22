@@ -1,3 +1,4 @@
+//假后端，可以不用
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
     

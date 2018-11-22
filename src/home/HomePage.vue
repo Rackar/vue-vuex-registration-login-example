@@ -13,6 +13,9 @@
                 <span v-else> - <a @click="deleteUser(user.id)" class="text-danger">Delete</a></span>
             </li>
         </ul>
+        <div v-if="articles">
+           <article-content v-for="article in articles" :key="article.id" :article="article"></article-content>  
+        </div>
         <p>
             <router-link to="/login">Logout</router-link>
         </p>
@@ -22,6 +25,8 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
+import {articleService} from '../_services'
+import ArticleContent from '../article/ArticleContent.vue'
 export default {
     computed: {
         ...mapState({
@@ -31,6 +36,23 @@ export default {
     },
     created () {
         this.getAllUsers();
+        console.log(articleService)
+        this.articles=articleService.getAll().then(
+            res =>{
+                this.articles = res;
+                console.log(res)
+            },
+            error =>{console.log(error)}
+        );
+        
+    },
+    data() {
+        return {
+            articles: [],
+        }
+    },
+    components:{
+        ArticleContent
     },
     methods: {
         ...mapActions('users', {

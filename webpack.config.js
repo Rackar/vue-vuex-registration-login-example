@@ -26,6 +26,8 @@ module.exports = {
     devServer: {
         historyApiFallback: true
     },
+    devtool:'source-map',
+    // cacheBusting:false,
     externals: {
         // global app config object
         config: JSON.stringify({
